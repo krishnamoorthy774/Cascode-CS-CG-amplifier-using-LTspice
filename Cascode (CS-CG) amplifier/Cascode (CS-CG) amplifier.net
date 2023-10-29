@@ -1,0 +1,38 @@
+* C:\Users\mptsi\Documents\LTspice\Analog VLSI Design\Cascode (CS-CG) amplifier.asc
+M1 N003 N004 N005 N005 NMOS1
+M2 N001 N002 N003 N003 NMOS2
+R1 Vdd N002 100k
+R2 N002 N004 24k
+R3 N004 0 12k
+RD Vdd N001 3.3k
+RS N005 0 1k
+C1 Vout1 N003 10µ
+CD2 Vout2 N001 10µ
+CC1 N004 Vin 10µ
+CB N002 0 100µ
+Vs Vin 0 SINE(0 10m 1k)
+V1 Vdd 0 18
+CS1 N005 0 100µ
+R4 Vout2 0 90k
+R5 Vout1 0 90k
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\mptsi\AppData\Local\LTspice\lib\cmp\standard.mos
+.model nmos1 nmos(VTO=0.8 KP=1.6E-3)
+* D2
+* S2
+* S1
+* Cascode (CS-CG) amplifier
+* E-MOSFET Parameters: VTO=0.8V, kn = 0.8e-3\nKP = 2*kn = 1.6e-3
+.tran 3m
+.model nmos2 nmos(VTO=0.8 KP=1.6E-3)
+* AC 1
+.meas Vin PP V(Vin)
+.meas Vout PP V(Vout2)
+.meas Gain Param Vout/Vin
+.meas GaindB Param 20*log10(Gain)
+* AV1=-Vout1/Vin=0.9978
+* AV2=Vout2/Vout1=2.89
+;op
+.backanno
+.end
